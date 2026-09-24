@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101510">
+  <meta name="description" content="一款以选择与因果推动的原创修仙人生模拟器。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111711'/%3E%3Cpath d='M13 42c12-1 16-16 18-29 4 13 6 25 20 30-13 5-27 5-38-1Z' fill='none' stroke='%23c5a567' stroke-width='4'/%3E%3Ccircle cx='32' cy='34' r='4' fill='%23c5a567'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <title>凡人问道 · 一世修仙录</title>
+</head>
+<body>
+  <div class="sky-texture" aria-hidden="true"></div><div class="mist mist-one" aria-hidden="true"></div><div class="mist mist-two" aria-hidden="true"></div><div class="aura-field" id="aura-field" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="返回命书首页"><span class="brand-mark">问</span><span><strong>凡人问道</strong><small>一世修仙录</small></span></a>
+    <button class="sound-toggle" id="motion-toggle" type="button" aria-pressed="false">静息动效</button>
+  </header>
+  <main class="stage">
+    <section class="screen active" id="start-screen" aria-labelledby="game-title">
+      <div class="start-scroll scroll-surface">
+        <p class="seal">问道</p><p class="eyebrow">一念入尘 · 一世寻仙</p><h1 id="game-title">凡人问道</h1><p class="title-note">一世修仙录</p>
+        <div class="ink-divider" aria-hidden="true"><span></span></div>
+        <p class="intro">山河万里，仙路无凭。你的灵根、机缘与劫数，都将在这一卷命书中徐徐展开。</p>
+        <button class="primary-action" type="button" id="start-button">开启此世修仙</button><p class="hint">原创同人风格体验 · 每一世皆由选择与因果生成</p>
+      </div>
+      <aside class="world-note" aria-label="世界旧闻"><span>天南旧闻 · 其一</span><p>太岳山脉常有青衫修士独行。有人说，他走过之后，山中总会少一场本该发生的争斗。</p></aside>
+    </section>
+    <section class="screen" id="creation-screen" aria-labelledby="creation-title">
+      <div class="creation-shell">
+        <div class="creation-heading"><p class="chapter-label">转世之前</p><h2 id="creation-title">问心定命</h2><p>天命不可尽改，但你仍可为这一世落下第一笔。</p></div>
+        <div class="creation-grid">
+          <section class="creation-group name-group"><div class="group-title"><span>壹</span><div><h3>命主名号</h3><p>留空则由命书赐名</p></div></div><input id="custom-name" type="text" maxlength="6" placeholder="例如：沈知微" autocomplete="off"></section>
+          <section class="creation-group"><div class="group-title"><span>贰</span><div><h3>选择出身</h3><p>决定初始资源与一桩隐藏因果</p></div></div><div class="creation-options" id="background-options" role="radiogroup" aria-label="选择出身"></div></section>
+          <section class="creation-group"><div class="group-title"><span>叁</span><div><h3>灵根倾向</h3><p>偏向一行，仍保留天命随机</p></div></div><div class="creation-options compact" id="root-options" role="radiogroup" aria-label="选择灵根倾向"></div></section>
+          <section class="creation-group talent-group"><div class="group-title"><span>肆</span><div><h3>初始天赋</h3><p>选择两项，后续事件会有所回应</p></div><b id="talent-count">0 / 2</b></div><div class="creation-options talents" id="talent-options" aria-label="选择两项初始天赋"></div></section>
+          <section class="creation-group"><div class="group-title"><span>伍</span><div><h3>修仙志向</h3><p>决定你为何踏上仙途</p></div></div><div class="creation-options" id="aspiration-options" role="radiogroup" aria-label="选择修仙志向"></div></section>
+        </div>
+        <p class="creation-warning" id="creation-warning" aria-live="polite"></p>
+        <div class="creation-actions"><button class="secondary-action" type="button" id="random-life-button">一键随机入世</button><button class="primary-action" type="button" id="confirm-creation-button">定下此生命格</button></div>
+      </div>
+    </section>
+    <section class="screen" id="profile-screen" aria-labelledby="profile-title">
+      <div class="profile-layout">
+        <article class="scroll-surface profile-scroll">
+          <p class="chapter-label">命书初启</p><h2 id="profile-title">此世根骨</h2>
+          <div class="profile-name-row"><div><span>姓名</span><strong id="profile-name">—</strong></div><div><span>出身</span><strong id="profile-origin">—</strong></div></div>
+          <div class="spirit-roots" id="spirit-roots" aria-label="五行灵根"></div>
+          <dl class="profile-traits"><div><dt>灵根</dt><dd id="profile-root">—</dd></div><div><dt>悟性</dt><dd id="profile-insight">—</dd></div><div><dt>气运</dt><dd id="profile-luck">—</dd></div><div><dt>性格</dt><dd id="profile-personality">—</dd></div><div><dt>寿元</dt><dd id="profile-lifespan">—</dd></div><div><dt>初始灵石</dt><dd id="profile-stones">—</dd></div></dl>
+          <p class="chosen-fate" id="chosen-fate">—</p>
+          <button class="primary-action" type="button" id="enter-world-button">踏入仙途</button>
+        </article>
+        <div class="omen-card"><span>命格批语</span><p id="omen-text">—</p></div>
+      </div>
+    </section>
+    <section class="screen" id="game-screen" aria-labelledby="event-title">
+      <div class="game-shell">
+        <aside class="status-panel" aria-label="人物状态">
+          <div class="identity-block"><span class="avatar-seal" id="avatar-seal">—</span><div><strong id="status-name">—</strong><small id="status-origin">—</small></div></div>
+          <div class="realm-block"><span>当前境界</span><strong id="status-realm">凡人</strong><div class="progress-track" aria-label="修为进度"><i id="cultivation-progress"></i></div><small id="cultivation-label">修为 0 / 10</small></div>
+          <dl class="status-grid"><div><dt>年岁</dt><dd id="status-age">12</dd></div><div><dt>寿元</dt><dd id="status-lifespan">80</dd></div><div><dt>灵石</dt><dd id="status-stones">0</dd></div><div><dt>气运</dt><dd id="status-luck">0</dd></div><div><dt>心境</dt><dd id="status-mind">0</dd></div><div><dt>神识</dt><dd id="status-spirit">0</dd></div><div><dt>伤势</dt><dd id="status-injury">无恙</dd></div><div><dt>宗门</dt><dd id="status-sect">未入门</dd></div></dl>
+          <div class="journey-dots" id="journey-dots" aria-label="人生进度"></div>
+        </aside>
+        <article class="event-scroll scroll-surface" id="event-card">
+          <div class="event-heading"><span id="event-year">十二岁 · 仲春</span><span id="event-step">第一劫 / 共十四劫</span></div>
+          <p class="chapter-label" id="event-kicker">山门初启</p><h2 id="event-title">—</h2><p class="event-copy" id="event-copy">—</p>
+          <blockquote class="easter-egg hidden" id="easter-egg"><span>世界线回响</span><p id="easter-copy"></p></blockquote>
+          <div class="choices" id="choices" role="group" aria-label="选择你的行动"></div>
+          <div class="outcome hidden" id="outcome" aria-live="polite"><p id="outcome-copy"></p><div class="changes" id="changes"></div><button class="text-action" type="button" id="continue-button">翻至下一页 <span>→</span></button></div>
+        </article>
+      </div>
+    </section>
+    <section class="screen" id="ending-screen" aria-labelledby="ending-title">
+      <div class="ending-layout">
+        <article class="ending-scroll scroll-surface">
+          <p class="chapter-label">命书合卷</p><p class="ending-rank" id="ending-rank">—</p><h2 id="ending-title">此世评命</h2>
+          <div class="ending-stats"><div><span>享年</span><strong id="ending-age">—</strong></div><div><span>最高境界</span><strong id="ending-realm">—</strong></div><div><span>身后之名</span><strong id="ending-name">—</strong></div></div>
+          <p class="verdict" id="ending-verdict">—</p><div class="deeds"><h3>关键经历</h3><ol id="key-deeds"></ol></div>
+        </article>
+        <article class="biography-panel"><div class="biography-heading"><div><span>灵犀撰录</span><h3>本世修仙传记</h3></div><span class="generated-badge" id="biography-badge">正在推演…</span></div><div class="biography-copy" id="biography-copy" aria-live="polite"></div><button class="primary-action" type="button" id="restart-button">再入轮回</button></article>
+      </div>
+    </section>
+  </main>
+  <div class="toast-layer" id="toast-layer" aria-live="polite"></div><footer>原创修仙人生模拟器 · 本地运行，不收集数据</footer>
+  <script src="data.js"></script><script src="game.js"></script>
+</body>
+</html>
